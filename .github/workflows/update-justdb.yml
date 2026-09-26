@@ -1,0 +1,30 @@
+name: Update JustDB
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: update-justdb
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check published release and verify installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/update-justdb.py
+      - name: Commit cask update
+        run: |
+          if git diff --quiet -- Casks/justdb.rb; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Casks/justdb.rb
+          git commit -m 'Update JustDB cask'
+          git push
