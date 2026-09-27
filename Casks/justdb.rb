@@ -1,6 +1,6 @@
 cask "justdb" do
-  version "0.2.3"
-  sha256 "9a2e7951f26e421fe8ed4181533add8e8b0c6798061bc099b41596ede3ea8f19"
+  version "0.2.4"
+  sha256 "c19ab816184b5fe44f8297a8deec538b836f5f7fd24239b035f350a2174efadc"
 
   url "https://github.com/codellyson/justdb/releases/download/v#{version}/JustDB_#{version}_universal.dmg"
   name "JustDB"
